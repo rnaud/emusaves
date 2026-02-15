@@ -5,6 +5,10 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,31 +16,44 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.documentfile.provider.DocumentFile
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = androidx.lifecycle.viewModel.compose.collectAsState().value
-) {
+fun HomeScreen() {
     val context = LocalContext.current
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory(context))
+    val uiState by viewModel.uiState.collectAsState()
+
     var selectedFolderUri by remember { mutableStateOf<Uri?>(null) }
     var synologyHost by remember { mutableStateOf("") }
     var synologyUser by remember { mutableStateOf("") }
     var synologyPassword by remember { mutableStateOf("") }
     var remotePath by remember { mutableStateOf("/Drive/EmulatorBackups") }
+    var showSynologyDialog by remember { mutableStateOf(false) }
+    var scheduledSyncEnabled by remember { mutableStateOf(false) }
+
+    // Load config into fields when available
+    LaunchedEffect(uiState.config) {
+        uiState.config?.let { config ->
+            synologyHost = config.host
+            synologyUser = config.username
+            synologyPassword = config.password
+            remotePath = config.remotePath
+        }
+    }
 
     val folderPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree()
     ) { uri ->
         uri?.let {
-            // Take persistable permission
-            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or 
-                          Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             context.contentResolver.takePersistableUriPermission(uri, takeFlags)
             selectedFolderUri = uri
+            viewModel.addFolder(uri)
         }
     }
 
@@ -50,82 +67,58 @@ fun HomeScreen(
             )
         }
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Status Card
-            Card(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = "Sync Status",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = if (selectedFolderUri != null) "Folder selected" else "No folder selected",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = if (selectedFolderUri != null) 
-                            MaterialTheme.colorScheme.primary 
-                        else MaterialTheme.colorScheme.error
-                    )
-                }
+            // Sync Status Card
+            item {
+                StatusCard(
+                    syncStatus = uiState.syncStatus,
+                    onSyncNow = { viewModel.syncNow() }
+                )
             }
 
-            // Folder Selection
-            Card(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = "Save Files Location",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "Select the folder containing your emulator saves",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Button(
-                        onClick = { folderPicker.launch(null) },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(if (selectedFolderUri != null) "Change Folder" else "Select Folder")
-                    }
-                    if (selectedFolderUri != null) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = DocumentFile.fromTreeUri(context, selectedFolderUri!!)?.name ?: "Unknown",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
-                }
+            // Folders Card
+            item {
+                FoldersCard(
+                    folders = uiState.folders,
+                    onSelectFolder = { folderPicker.launch(null) },
+                    onRemoveFolder = { viewModel.removeFolder(it) }
+                )
             }
 
-            // Synology Settings
-            Card(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = "Synology NAS",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    
+            // Synology Card
+            item {
+                SynologyCard(
+                    config = uiState.config,
+                    onConfigure = { showSynologyDialog = true }
+                )
+            }
+
+            // Scheduled Sync Card
+            item {
+                ScheduledSyncCard(
+                    enabled = scheduledSyncEnabled,
+                    onToggle = { enabled ->
+                        scheduledSyncEnabled = enabled
+                        viewModel.enableScheduledSync(enabled)
+                    }
+                )
+            }
+        }
+    }
+
+    // Synology Config Dialog
+    if (showSynologyDialog) {
+        AlertDialog(
+            onDismissRequest = { showSynologyDialog = false },
+            title = { Text("Synology NAS Configuration") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(
                         value = synologyHost,
                         onValueChange = { synologyHost = it },
@@ -133,9 +126,6 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
                     OutlinedTextField(
                         value = synologyUser,
                         onValueChange = { synologyUser = it },
@@ -143,9 +133,6 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
                     OutlinedTextField(
                         value = synologyPassword,
                         onValueChange = { synologyPassword = it },
@@ -153,9 +140,6 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
                     OutlinedTextField(
                         value = remotePath,
                         onValueChange = { remotePath = it },
@@ -164,17 +148,221 @@ fun HomeScreen(
                         singleLine = true
                     )
                 }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.saveConfig(
+                            SynologyConfig(
+                                host = synologyHost,
+                                username = synologyUser,
+                                password = synologyPassword,
+                                remotePath = remotePath
+                            )
+                        )
+                        showSynologyDialog = false
+                    }
+                ) {
+                    Text("Save")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showSynologyDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+}
+
+@Composable
+private fun StatusCard(
+    syncStatus: com.emusaves.domain.model.SyncStatus,
+    onSyncNow: () -> Unit
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Sync Status", style = MaterialTheme.typography.titleMedium)
+                if (syncStatus.isSyncing) {
+                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                }
             }
 
-            // Sync Now Button
-            Button(
-                onClick = { /* Trigger sync */ },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = selectedFolderUri != null && synologyHost.isNotBlank() 
-                        && synologyUser.isNotBlank() && synologyPassword.isNotBlank()
-            ) {
-                Text("Sync Now")
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (syncStatus.lastSyncTime > 0) {
+                val dateFormat = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
+                Text(
+                    "Last sync: ${dateFormat.format(Date(syncStatus.lastSyncTime))}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                Text(
+                    "Never synced",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
+
+            syncStatus.lastError?.let { error ->
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    "Error: $error",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Button(
+                onClick = onSyncNow,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !syncStatus.isSyncing
+            ) {
+                if (syncStatus.isSyncing) {
+                    Text("Syncing...")
+                } else {
+                    Text("Sync Now")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun FoldersCard(
+    folders: List<com.emusaves.domain.model.SyncFolder>,
+    onSelectFolder: () -> Unit,
+    onRemoveFolder: (Uri) -> Unit
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Backup Folders", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(12.dp))
+
+            if (folders.isEmpty()) {
+                Text(
+                    "No folders selected",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            } else {
+                folders.forEach { folder ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Folder,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(folder.name, style = MaterialTheme.typography.bodyMedium)
+                        }
+                        IconButton(onClick = { onRemoveFolder(folder.uri) }) {
+                            Icon(Icons.Default.Delete, contentDescription = "Remove")
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            OutlinedButton(
+                onClick = onSelectFolder,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(Icons.Default.Add, contentDescription = null)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Add Folder")
+            }
+        }
+    }
+}
+
+@Composable
+private fun SynologyCard(
+    config: com.emusaves.domain.model.SynologyConfig?,
+    onConfigure: () -> Unit
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Synology NAS", style = MaterialTheme.typography.titleMedium)
+                if (config != null) {
+                    Icon(
+                        Icons.Default.CheckCircle,
+                        contentDescription = "Configured",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (config != null) {
+                Text(
+                    "${config.host} → ${config.remotePath}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else {
+                Text(
+                    "Not configured",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            OutlinedButton(
+                onClick = onConfigure,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(if (config != null) "Update Configuration" else "Configure")
+            }
+        }
+    }
+}
+
+@Composable
+private fun ScheduledSyncCard(
+    enabled: Boolean,
+    onToggle: (Boolean) -> Unit
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text("Scheduled Sync", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    "Every 6 hours on Wi-Fi + charging",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Switch(checked = enabled, onCheckedChange = onToggle)
         }
     }
 }
