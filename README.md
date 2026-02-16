@@ -4,6 +4,89 @@
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
+## 📱 Screenshots
+
+### Main Interface
+<div align="center">
+<table>
+<tr>
+<td align="center" width="33%">
+
+**Home Screen**  
+<img src="https://via.placeholder.com/300x600/1976D2/FFFFFF?text=📱+Home+Screen%0A%0A📊+Sync+Status%0A📁+Folders+(2)%0A🔧+Synology+NAS%0A⏰+Scheduled+Sync" alt="Home Screen" width="250"/>
+
+*Main dashboard with sync status, folder management, and configuration*
+
+</td>
+<td align="center" width="33%">
+
+**Folder Selection**  
+<img src="https://via.placeholder.com/300x600/388E3C/FFFFFF?text=📱+Add+Folders%0A%0A📂+RetroArch+Saves%0A📂+PPSSPP+Saves%0A📂+Dolphin+Saves%0A%0A➕+Add+Folder" alt="Folder Selection" width="250"/>
+
+*Easy folder picker with persistent permissions*
+
+</td>
+<td align="center" width="33%">
+
+**Sync Progress**  
+<img src="https://via.placeholder.com/300x600/F57C00/FFFFFF?text=📱+Syncing...%0A%0A🔄+Uploading...%0A📊+Progress+65%25%0A📁+12+files+found%0A✅+8+uploaded" alt="Sync Progress" width="250"/>
+
+*Real-time sync progress with detailed status*
+
+</td>
+</tr>
+</table>
+</div>
+
+### Configuration Screens
+<div align="center">
+<table>
+<tr>
+<td align="center" width="50%">
+
+**Synology Setup**  
+<img src="https://via.placeholder.com/300x600/7B1FA2/FFFFFF?text=📱+NAS+Config%0A%0A🌐+nas.local%0A👤+Username%0A🔑+App+Password%0A📁+/Drive/Backups%0A%0A✅+Test+Connection" alt="Synology Configuration" width="250"/>
+
+*Simple NAS configuration with connection testing*
+
+</td>
+<td align="center" width="50%">
+
+**Background Sync**  
+<img src="https://via.placeholder.com/300x600/D32F2F/FFFFFF?text=📱+Schedule%0A%0A⏰+Every+6+hours%0A📶+Wi-Fi+only%0A🔋+While+charging%0A📊+Last:+2h+ago%0A%0A🔘+Enabled" alt="Scheduled Sync Settings" width="250"/>
+
+*Automated backup scheduling options*
+
+</td>
+</tr>
+</table>
+</div>
+
+---
+
+### 📸 Help Us Add Real Screenshots!
+
+**Want to contribute actual app screenshots?**
+
+1. **Install**: Download and install the latest APK from [Releases](../../releases)  
+2. **Setup**: Configure the app with your Synology NAS
+3. **Screenshot**: Take screenshots of key screens:
+   - Home screen with sync status
+   - Folder selection interface  
+   - Synology configuration dialog
+   - Sync progress screen
+   - Settings/scheduling options
+
+4. **Submit**: Open an issue or PR with your screenshots
+
+**Screenshot Guidelines**:
+- **Resolution**: 1080x1920 or similar Android resolution
+- **Format**: PNG with transparent or white background
+- **Content**: Remove any personal information (NAS addresses, usernames)
+- **Naming**: `screenshot-[screen-name].png` (e.g., `screenshot-home.png`)
+
+*Current screenshots are placeholder mockups showing the intended design.*
+
 ## ✨ Features
 
 ### 📱 Core Functionality
@@ -21,17 +104,75 @@
 - **Document Provider Integration**: Seamless folder selection with persistent permissions
 
 ### 🎯 Supported Emulators
-Currently supports save files from:
-- **RetroArch** (`.srm`, `.state`, `.sav`, `.bsv`)
-- More emulators coming soon!
+**File Format Support**: `.srm`, `.sav`, `.state`, `.bsv`, `.dat`, `.mcr`, `.gci`, and more
+
+**Tested Emulators**:
+- 🎮 **RetroArch** - All cores and save types
+- 🎮 **PPSSPP** - PSP save data and states  
+- 🎮 **Dolphin** - GameCube/Wii saves and memory cards
+- 🎮 **AetherSX2** - PS2 save data and states
+- 🎮 **ePSXe** - PS1 save states and memory cards
+- 🎮 **DraStic** - Nintendo DS save backups
+- 🎮 **My Boy!** - Game Boy Advance saves
+- 🎮 **Pizza Boy** - GBA/GBC save files
+- 🎮 **Snes9x EX+** - Super Nintendo saves
+- 🎮 **MD.emu** - Genesis/Mega Drive saves
+- 🎮 **MAME4droid** - Arcade machine saves
+
+**Any emulator that saves files to accessible folders will work!**
 
 ## 🚀 Quick Start
 
 1. **Download**: Get the latest APK from [GitHub Releases](../../releases) or [Actions](../../actions)
 2. **Install**: Enable "Unknown Sources" and install the APK
 3. **Configure Synology**: Enter your NAS address, username, and app password
-4. **Select Folders**: Choose your emulator save directories
+4. **Select Folders**: Choose your emulator save directories (see 📂 Emulator Locations below)
 5. **Sync**: Tap "Sync Now" or enable scheduled backups
+
+## 📂 Emulator Save Locations
+
+### Common Android Emulator Save Folders
+**Copy these paths to quickly find your save files:**
+
+#### 🎮 Multi-System Emulators
+- **RetroArch**: `/storage/emulated/0/Android/data/com.retroarch/files/saves/`
+- **RetroArch (States)**: `/storage/emulated/0/Android/data/com.retroarch/files/states/`
+
+#### 🎯 Console-Specific Emulators  
+- **PPSSPP (PSP)**: `/storage/emulated/0/PSP/SAVEDATA/`
+- **Dolphin (GameCube/Wii)**: `/storage/emulated/0/dolphin-emu/Saves/`
+- **AetherSX2 (PS2)**: `/storage/emulated/0/Android/data/xyz.aethersx2.android/files/saves/`
+- **ePSXe (PS1 States)**: `/storage/emulated/0/epsxe/sstates/`
+- **ePSXe (PS1 Memory Cards)**: `/storage/emulated/0/epsxe/memcards/`
+- **DraStic (DS)**: `/storage/emulated/0/DraStic/backup/`
+
+#### 🕹️ Handheld Emulators
+- **My Boy! (GBA)**: `/storage/emulated/0/MyBoy/saves/`
+- **Pizza Boy GBA**: `/storage/emulated/0/Android/data/it.dbtecno.pizzaboygba/files/`
+- **Pizza Boy GBC**: `/storage/emulated/0/Android/data/it.dbtecno.pizzaboygbc/files/`
+- **Snes9x EX+**: `/storage/emulated/0/Android/data/com.explusalpha.Snes9xPlus/files/saves/`
+- **MD.emu (Genesis)**: `/storage/emulated/0/Android/data/com.explusalpha.MdEmu/files/saves/`
+
+#### 🎪 Arcade Emulators
+- **MAME4droid**: `/storage/emulated/0/MAME4droid/saves/`
+- **FBNeo**: `/storage/emulated/0/Android/data/com.explusalpha.NeoEmu/files/saves/`
+
+### 📋 How to Use These Paths
+
+1. **Copy Path**: Long-press and copy any path above that matches your emulator
+2. **Open EmuSaves**: Tap "Add Folder" in the app
+3. **Navigate**: Use the file picker to navigate to the copied path
+   - Start from "Internal Storage" or "Primary" 
+   - Navigate through: `Android` → `data` → `[app name]` → `files` → `saves`
+4. **Grant Permission**: Select the folder and grant persistent access
+5. **Verify**: Check that save files appear in the app
+
+### 💡 Pro Tips
+
+- **Multiple Folders**: Add separate folders for different emulators or save types
+- **States vs Saves**: Some emulators separate save states from battery saves - add both!
+- **Check First**: Verify the folder contains `.srm`, `.sav`, `.state`, or similar save files
+- **Permissions**: Grant access to the deepest folder containing saves (not just the app folder)
 
 ## ⚙️ Setup Guide
 
