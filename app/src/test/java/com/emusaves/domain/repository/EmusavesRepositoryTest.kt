@@ -15,8 +15,8 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.*
-import org.mockito.kotlin.mockStatic
 import org.junit.Assert.*
 
 class EmusavesRepositoryTest {
@@ -46,7 +46,7 @@ class EmusavesRepositoryTest {
         MockitoAnnotations.openMocks(this)
         
         // Mock database.getDatabase to return our mock database
-        mockStatic<EmusavesDatabase>().use { mockedStatic ->
+        mockStatic(EmusavesDatabase::class.java).use { mockedStatic ->
             mockedStatic.`when`<EmusavesDatabase> { EmusavesDatabase.getDatabase(context) }.thenReturn(database)
             
             whenever(database.syncFolderDao()).thenReturn(syncFolderDao)
@@ -147,7 +147,7 @@ class EmusavesRepositoryTest {
         whenever(uri.toString()).thenReturn("content://test/uri")
         whenever(documentFile.name).thenReturn("Test Folder")
         
-        mockStatic<DocumentFile>().use { mockedStatic ->
+        mockStatic(DocumentFile::class.java).use { mockedStatic ->
             mockedStatic.`when`<DocumentFile> { 
                 DocumentFile.fromTreeUri(context, uri) 
             }.thenReturn(documentFile)
@@ -166,7 +166,7 @@ class EmusavesRepositoryTest {
     @Test
     fun `addFolder should handle null DocumentFile gracefully`() = runTest {
         // Given
-        mockStatic<DocumentFile>().use { mockedStatic ->
+        mockStatic(DocumentFile::class.java).use { mockedStatic ->
             mockedStatic.`when`<DocumentFile> { 
                 DocumentFile.fromTreeUri(context, uri) 
             }.thenReturn(null)

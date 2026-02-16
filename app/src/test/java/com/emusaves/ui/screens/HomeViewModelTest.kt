@@ -17,8 +17,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.*
-import org.mockito.kotlin.mockStatic
 import org.junit.Assert.*
 
 @ExperimentalCoroutinesApi
@@ -180,7 +180,7 @@ class HomeViewModelTest {
     @Test
     fun `syncNow should start sync and update sync status`() = runTest {
         // Given
-        mockStatic<SyncWorker>().use { mockedStatic ->
+        mockStatic(SyncWorker::class.java).use { mockedStatic ->
             // When
             viewModel.syncNow()
             advanceUntilIdle()
@@ -198,7 +198,7 @@ class HomeViewModelTest {
     fun `syncNow should handle sync worker exception`() = runTest {
         // Given
         val errorMessage = "Sync failed"
-        mockStatic<SyncWorker>().use { mockedStatic ->
+        mockStatic(SyncWorker::class.java).use { mockedStatic ->
             mockedStatic.`when`<Unit> { SyncWorker.enqueueOneTime(context) }
                 .thenThrow(RuntimeException(errorMessage))
             
@@ -216,7 +216,7 @@ class HomeViewModelTest {
     @Test
     fun `enableScheduledSync true should enqueue periodic sync`() {
         // Given
-        mockStatic<SyncWorker>().use { mockedStatic ->
+        mockStatic(SyncWorker::class.java).use { mockedStatic ->
             // When
             viewModel.enableScheduledSync(true)
             
@@ -228,7 +228,7 @@ class HomeViewModelTest {
     @Test
     fun `enableScheduledSync false should cancel sync`() {
         // Given
-        mockStatic<SyncWorker>().use { mockedStatic ->
+        mockStatic(SyncWorker::class.java).use { mockedStatic ->
             // When
             viewModel.enableScheduledSync(false)
             
