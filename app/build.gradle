@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'jacoco'
 }
 
 android {
@@ -120,14 +119,10 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
 
-// JaCoCo Test Coverage Configuration
-jacoco {
     toolVersion = "0.8.8"
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
     group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
     
     reports {
         xml.required = true
@@ -167,19 +162,14 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
     ]))
     
     executionData.setFrom(fileTree(dir: project.buildDir, includes: [
-        'jacoco/testDebugUnitTest.exec',
         'outputs/code_coverage/debugAndroidTest/connected/**/*.ec'
     ]))
     
     doFirst {
-        println "JaCoCo Test Report - Class directories: ${classDirectories.asPath}"
-        println "JaCoCo Test Report - Source directories: ${sourceDirectories.asPath}"
-        println "JaCoCo Test Report - Execution data: ${executionData.asPath}"
     }
 }
 
 // Task to run all tests and generate coverage report
-task testWithCoverage(dependsOn: ['test', 'jacocoTestReport']) {
     group = "verification"
     description = "Run all unit tests and generate coverage report"
 }
