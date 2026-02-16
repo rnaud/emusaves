@@ -1,13 +1,19 @@
 package com.emusaves.ui.screens
 
 import com.emusaves.domain.model.SynologyConfig
+import com.emusaves.domain.model.EmulatorLocation
+import com.emusaves.domain.model.EmulatorLocations
+import com.emusaves.domain.model.EmulatorCategory
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -16,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.viewmodel.compose.viewModel
 import java.text.SimpleDateFormat
@@ -34,6 +41,7 @@ fun HomeScreen() {
     var synologyPassword by remember { mutableStateOf("") }
     var remotePath by remember { mutableStateOf("/Drive/EmulatorBackups") }
     var showSynologyDialog by remember { mutableStateOf(false) }
+    var showQuickAddDialog by remember { mutableStateOf(false) }
     var scheduledSyncEnabled by remember { mutableStateOf(false) }
 
     // Load config into fields when available
@@ -88,6 +96,7 @@ fun HomeScreen() {
                 FoldersCard(
                     folders = uiState.folders,
                     onSelectFolder = { folderPicker.launch(null) },
+                    onQuickAdd = { showQuickAddDialog = true },
                     onRemoveFolder = { viewModel.removeFolder(it) }
                 )
             }
@@ -174,6 +183,25 @@ fun HomeScreen() {
             }
         )
     }
+
+    // Quick Add Dialog
+    if (showQuickAddDialog) {
+        QuickAddDialog(
+            onDismiss = { showQuickAddDialog = false },
+            onLocationSelected = { location ->
+                // Try to parse the URI and add the folder
+                try {
+                    val uri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3A${location.path.removePrefix("/storage/emulated/0/").replace("/", "%2F")}")
+                    viewModel.addFolder(uri)
+                    showQuickAddDialog = false
+                } catch (e: Exception) {
+                    // Fallback: launch folder picker at the location
+                    showQuickAddDialog = false
+                    folderPicker.launch(null)
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -240,6 +268,7 @@ private fun StatusCard(
 private fun FoldersCard(
     folders: List<com.emusaves.domain.model.SyncFolder>,
     onSelectFolder: () -> Unit,
+    onQuickAdd: () -> Unit,
     onRemoveFolder: (Uri) -> Unit
 ) {
     Card(modifier = Modifier.fillMaxWidth()) {
@@ -280,13 +309,26 @@ private fun FoldersCard(
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            OutlinedButton(
-                onClick = onSelectFolder,
-                modifier = Modifier.fillMaxWidth()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Icon(Icons.Default.Add, contentDescription = null)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Add Folder")
+                FilledTonalButton(
+                    onClick = onQuickAdd,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(Icons.Default.Star, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Quick Add")
+                }
+                OutlinedButton(
+                    onClick = onSelectFolder,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Browse")
+                }
             }
         }
     }
@@ -366,4 +408,120 @@ private fun ScheduledSyncCard(
             Switch(checked = enabled, onCheckedChange = onToggle)
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun QuickAddDialog(
+    onDismiss: () -> Unit,
+    onLocationSelected: (EmulatorLocation) -> Unit
+) {
+    var selectedCategory by remember { mutableStateOf(EmulatorCategory.MULTI_SYSTEM) }
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { 
+            Text(
+                "Quick Add Emulator Folders",
+                style = MaterialTheme.typography.headlineSmall
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    "Select common emulator save locations:",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                // Category tabs
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(EmulatorCategory.values()) { category ->
+                        FilterChip(
+                            onClick = { selectedCategory = category },
+                            label = { 
+                                Text(
+                                    "${category.icon} ${category.displayName}",
+                                    style = MaterialTheme.typography.labelMedium
+                                )
+                            },
+                            selected = selectedCategory == category
+                        )
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                // Emulator locations for selected category
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 300.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    items(EmulatorLocations.getByCategory(selectedCategory)) { location ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onLocationSelected(location) },
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                            ),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = location.icon,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    modifier = Modifier.width(32.dp)
+                                )
+                                
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = location.name,
+                                        style = MaterialTheme.typography.titleSmall,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                    Text(
+                                        text = location.emulator,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                    Text(
+                                        text = location.description,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                                
+                                Icon(
+                                    Icons.Default.ArrowForward,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {},
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Close")
+            }
+        }
+    )
 }
