@@ -9,6 +9,8 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -128,11 +130,17 @@ fun HomeScreen() {
             onDismissRequest = { showSynologyDialog = false },
             title = { Text("Synology NAS Configuration") },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     OutlinedTextField(
                         value = synologyHost,
                         onValueChange = { synologyHost = it },
-                        label = { Text("NAS Address (e.g., nas.local)") },
+                        label = { Text("NAS Address (e.g., nas.local or yourname.quickconnect.to)") },
+                        placeholder = { Text("nas.local or username.quickconnect.to") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
