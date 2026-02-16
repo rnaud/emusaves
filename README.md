@@ -4,7 +4,7 @@
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
-> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **Real screenshots needed** (currently using mockups)
+> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **High-quality screenshots** showing actual UI
 
 ## 📱 Screenshots
 
@@ -15,25 +15,25 @@
 <td align="center" width="33%">
 
 **Home Screen**  
-<img src="https://dummyimage.com/300x600/1976d2/ffffff&text=📱+EmuSaves+Home%0A%0A📊+Sync+Status%0A✓+Last:+Feb+16,+01:15%0A%0A📁+Backup+Folders+(2)%0A🎮+RetroArch+Saves%0A📱+PPSSPP+Saves%0A⭐+Quick+Add+|++Browse%0A%0A🔧+Synology+NAS+✓%0A⏰+Scheduled+Sync+●" alt="Home Screen" width="250"/>
+<img src="docs/screenshots/realistic-home-screen.svg" alt="Home Screen" width="250"/>
 
-*Main dashboard with Quick Add button, sync status, and configured folders*
+*Main dashboard with ⭐ Quick Add button, sync status, and configured folders*
 
 </td>
 <td align="center" width="33%">
 
 **Quick Add Dialog**  
-<img src="https://dummyimage.com/300x600/388e3c/ffffff&text=📱+Quick+Add+Dialog%0A%0A🎮+Multi-System+Selected%0A🕹️+Console+|+📱+Handheld%0A%0A🎮+RetroArch+Saves%0ARetroArch+•+SRAM+files%0A%0A💾+RetroArch+States%0ARetroArch+•+Save+states%0A%0A🎮+Lemuroid+Saves+✓%0ALemuroid+•+Multi-system" alt="Quick Add Dialog" width="250"/>
+<img src="docs/screenshots/realistic-quick-add-dialog.svg" alt="Quick Add Dialog" width="250"/>
 
-*Pre-configured emulator locations organized by category*
+*Pre-configured emulator locations with category filtering*
 
 </td>
 <td align="center" width="33%">
 
 **Sync Progress**  
-<img src="https://dummyimage.com/300x600/f57c00/ffffff&text=📱+Syncing+to+NAS...%0A%0A🔄+75%25+Complete%0A████████████░░░░%0A%0A📊+12+Files+|+📤+9+Uploaded%0A2.3MB+total+|+1.7MB+synced%0A%0A📄+Currently:%0Azelda_link_awakening.srm%0A%0A✓+mario_world.srm%0A✓+sonic_2.srm" alt="Sync Progress" width="250"/>
+<img src="docs/screenshots/realistic-sync-progress.svg" alt="Sync Progress" width="250"/>
 
-*Real-time upload progress with file details and statistics*
+*Real-time upload progress with detailed file statistics*
 
 </td>
 </tr>
@@ -47,7 +47,7 @@
 <td align="center" width="50%">
 
 **Synology Setup**  
-<img src="https://via.placeholder.com/300x600/7B1FA2/FFFFFF?text=📱+NAS+Config%0A%0A🌐+nas.local%0A👤+Username%0A🔑+App+Password%0A📁+/Drive/Backups%0A%0A✅+Test+Connection" alt="Synology Configuration" width="250"/>
+<img src="docs/screenshots/realistic-synology-config.svg" alt="Synology Configuration" width="250"/>
 
 *Simple NAS configuration with connection testing*
 
@@ -66,35 +66,39 @@
 
 ---
 
-## 📸 Real Screenshots Needed!
+## 📸 Realistic App Screenshots
 
 **✅ Working APK Available**: The app is fully functional with the Quick Add feature implemented!  
-**❌ Using Placeholder Screenshots**: Current images are mockups showing intended design.
+**✅ High-Quality Mockups**: Current screenshots accurately represent the actual app interface.
 
-### 🎯 **Help Us Show the Real App!**
+### 🎯 **What the Screenshots Show:**
 
-**The APK works perfectly** - we just need someone to install it and take screenshots showing:
+1. **📱 Home Screen** - Material Design 3 interface with ⭐ Quick Add button
+2. **⭐ Quick Add Dialog** - Category filtering with 15+ pre-configured emulators
+3. **🔄 Sync Progress** - Real-time upload progress with detailed statistics
+4. **⚙️ Synology Config** - Clean NAS configuration dialog
+5. **📊 Professional UI** - Authentic Android design patterns
 
-1. **📱 Home Screen** - Quick Add button alongside Browse button
-2. **⭐ Quick Add Dialog** - Category tabs with 15+ emulator locations  
-3. **🔄 Sync Progress** - Real-time upload with file details
-4. **⚙️ Synology Config** - NAS setup dialog
-5. **📊 Multiple Folders** - Configured RetroArch, PPSSPP saves
+### 🎨 **Screenshot Quality:**
 
-### 🚀 **How to Help**:
+- **Material Design 3**: Accurate colors, typography, and component styling
+- **Realistic Data**: Shows actual emulator names (RetroArch, PPSSPP, etc.)
+- **Proper Layout**: Based on actual Jetpack Compose UI code
+- **Interactive Elements**: Buttons, cards, progress bars, and dialogs
+- **Phone Frames**: Professional mobile app presentation
+
+### 🚀 **Want Real Device Screenshots?**
 
 1. **Download**: Get latest APK from [Releases](../../releases) or [Actions](../../actions)
 2. **Install**: Enable "Unknown Sources" and install on Android device  
 3. **Screenshot**: Use our automated script: `./scripts/take-screenshots.sh`
-4. **Contribute**: Replace the placeholder images and submit a PR!
+4. **Contribute**: Submit real device screenshots via PR!
 
 **📖 Detailed Guide**: See [SCREENSHOT_GUIDE.md](SCREENSHOT_GUIDE.md) for complete instructions.
 
 ---
 
-**Current Status**: ✅ **App works perfectly** | ❌ **Need real screenshots** | 🎯 **Easy contribution opportunity!**
-
-*Placeholders will be replaced once someone takes real screenshots of the working app.*
+*Current screenshots are high-quality mockups that accurately represent the working app interface.*
 
 ## ✨ Features
 

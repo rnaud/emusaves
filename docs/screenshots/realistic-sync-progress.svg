@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="640" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .primary { fill: #1976D2; }
+      .on-primary { fill: #FFFFFF; }
+      .surface { fill: #FFFFFF; }
+      .on-surface { fill: #212121; }
+      .on-surface-variant { fill: #757575; }
+      .outline { stroke: #E0E0E0; }
+      .success { fill: #4CAF50; }
+      .warning { fill: #FF9800; }
+      .error { fill: #F44336; }
+      .success-tint { fill: #E8F5E8; }
+      .primary-tint { fill: #E3F2FD; }
+      .warning-tint { fill: #FFF3E0; }
+      .error-tint { fill: #FFEBEE; }
+      
+      .card { 
+        filter: drop-shadow(0px 1px 3px rgba(0,0,0,0.1));
+      }
+      
+      .roboto { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      
+      .spinner {
+        animation: spin 2s linear infinite;
+        transform-origin: 12px 12px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </defs>
+  
+  <!-- Phone Frame -->
+  <rect x="0" y="0" width="320" height="640" rx="24" ry="24" fill="#000000"/>
+  <rect x="10" y="10" width="300" height="620" rx="20" ry="20" fill="#FAFAFA"/>
+  
+  <!-- Status Bar -->
+  <rect x="10" y="10" width="300" height="24" class="primary"/>
+  <text x="22" y="26" class="on-primary roboto" font-size="12" font-weight="500">9:43</text>
+  <text x="270" y="26" class="on-primary roboto" font-size="12" font-weight="500">95%</text>
+  
+  <!-- Top App Bar -->
+  <rect x="10" y="34" width="300" height="56" class="primary-tint"/>
+  <text x="26" y="70" class="primary roboto" font-size="20" font-weight="500">EmuSaves</text>
+  
+  <!-- Content Area -->
+  <g transform="translate(26, 106)">
+    
+    <!-- Active Sync Status Card (Success Border) -->
+    <rect x="0" y="0" width="268" height="440" rx="12" class="surface card" stroke="#4CAF50" stroke-width="2"/>
+    
+    <!-- Card Content -->
+    <g transform="translate(16, 16)">
+      
+      <!-- Header with Spinner -->
+      <text x="0" y="18" class="on-surface roboto" font-size="16" font-weight="500">Syncing...</text>
+      
+      <!-- Animated Spinner -->
+      <g transform="translate(200, 6)">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+        <path d="M 12,2 A 10,10 0 0,1 19.14,7" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" class="spinner"/>
+      </g>
+      
+      <!-- Status Text -->
+      <text x="0" y="42" class="success roboto" font-size="14" font-weight="500">Uploading to nas.local...</text>
+      
+      <!-- Progress Bar -->
+      <rect x="0" y="54" width="236" height="4" rx="2" fill="#E0E0E0"/>
+      <rect x="0" y="54" width="177" height="4" rx="2" class="success"/>
+      <text x="118" y="78" class="success roboto" font-size="14" font-weight="500" text-anchor="middle">75% Complete</text>
+      
+      <!-- Statistics Cards -->
+      <g transform="translate(0, 96)">
+        
+        <!-- Files Found Card -->
+        <rect x="0" y="0" width="110" height="90" rx="8" class="success-tint" stroke="#4CAF50" stroke-width="1"/>
+        <text x="55" y="28" class="success roboto" font-size="20" font-weight="bold" text-anchor="middle">12</text>
+        <text x="55" y="48" class="success roboto" font-size="12" font-weight="500" text-anchor="middle">Files Found</text>
+        <text x="8" y="64" class="on-surface-variant roboto" font-size="10">RetroArch, PPSSPP</text>
+        <text x="8" y="78" class="on-surface-variant roboto" font-size="10">2.3 MB total</text>
+        
+        <!-- Uploaded Card -->
+        <rect x="118" y="0" width="118" height="90" rx="8" class="primary-tint" stroke="#1976D2" stroke-width="1"/>
+        <text x="177" y="28" class="primary roboto" font-size="20" font-weight="bold" text-anchor="middle">9</text>
+        <text x="177" y="48" class="primary roboto" font-size="12" font-weight="500" text-anchor="middle">Uploaded</text>
+        <text x="126" y="64" class="on-surface-variant roboto" font-size="10">1.7 MB synced</text>
+        <text x="126" y="78" class="success roboto" font-size="10">✓ No conflicts</text>
+        
+      </g>
+      
+      <!-- Current File Section -->
+      <g transform="translate(0, 200)">
+        <text x="0" y="18" class="on-surface-variant roboto" font-size="14">Currently uploading:</text>
+        
+        <!-- Current File Box -->
+        <rect x="0" y="26" width="236" height="32" rx="4" class="warning-tint" stroke="#FF9800" stroke-width="1"/>
+        <text x="8" y="46" class="roboto" font-size="12" font-weight="500" fill="#E65100">zelda_link_awakening.srm</text>
+        <text x="220" y="46" class="warning roboto" font-size="12" text-anchor="end">47%</text>
+      </g>
+      
+      <!-- Recent Uploads Section -->
+      <g transform="translate(0, 270)">
+        <text x="0" y="18" class="on-surface-variant roboto" font-size="14">Recent uploads:</text>
+        
+        <text x="0" y="38" class="success roboto" font-size="11">✓ mario_world.srm (32 KB)</text>
+        <text x="0" y="54" class="success roboto" font-size="11">✓ sonic_2.srm (16 KB)</text>
+        <text x="0" y="70" class="success roboto" font-size="11">✓ pokemon_red.sav (128 KB)</text>
+      </g>
+      
+      <!-- Cancel Button -->
+      <g transform="translate(0, 350)">
+        <rect x="0" y="0" width="236" height="40" rx="20" class="error-tint" stroke="#F44336" stroke-width="1"/>
+        <text x="118" y="26" class="error roboto" font-size="14" font-weight="500" text-anchor="middle">Cancel Sync</text>
+      </g>
+      
+    </g>
+  </g>
+  
+  <!-- Home Indicator -->
+  <rect x="130" y="615" width="60" height="4" rx="2" fill="#606060"/>
+</svg>

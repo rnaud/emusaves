@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="640" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .primary { fill: #1976D2; }
+      .on-primary { fill: #FFFFFF; }
+      .surface { fill: #FFFFFF; }
+      .on-surface { fill: #212121; }
+      .on-surface-variant { fill: #757575; }
+      .outline { stroke: #E0E0E0; }
+      .surface-tint { fill: #E3F2FD; }
+      .surface-variant { fill: #F8F9FA; }
+      .selected { fill: #E3F2FD; stroke: #1976D2; }
+      
+      .card { 
+        filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.15));
+      }
+      
+      .roboto { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      
+      .overlay {
+        fill: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </defs>
+  
+  <!-- Phone Frame -->
+  <rect x="0" y="0" width="320" height="640" rx="24" ry="24" fill="#000000"/>
+  <rect x="10" y="10" width="300" height="620" rx="20" ry="20" fill="#FAFAFA"/>
+  
+  <!-- Status Bar -->
+  <rect x="10" y="10" width="300" height="24" class="primary"/>
+  <text x="22" y="26" class="on-primary roboto" font-size="12" font-weight="500">9:41</text>
+  <text x="270" y="26" class="on-primary roboto" font-size="12" font-weight="500">100%</text>
+  
+  <!-- Top App Bar -->
+  <rect x="10" y="34" width="300" height="56" class="surface-tint"/>
+  <text x="26" y="70" class="primary roboto" font-size="20" font-weight="500">EmuSaves</text>
+  
+  <!-- Dimmed Background (Dialog Overlay) -->
+  <rect x="10" y="90" width="300" height="540" class="overlay"/>
+  
+  <!-- Dialog -->
+  <g transform="translate(30, 110)">
+    <!-- Dialog Shadow -->
+    <rect x="4" y="4" width="260" height="420" rx="16" fill="rgba(0,0,0,0.2)"/>
+    
+    <!-- Dialog Background -->
+    <rect x="0" y="0" width="260" height="420" rx="16" class="surface"/>
+    
+    <!-- Dialog Content -->
+    <g transform="translate(20, 24)">
+      
+      <!-- Title -->
+      <text x="0" y="0" class="on-surface roboto" font-size="18" font-weight="500">Quick Add Emulator Folders</text>
+      <text x="0" y="24" class="on-surface-variant roboto" font-size="14">Select common emulator save locations:</text>
+      
+      <!-- Category Filter Chips -->
+      <g transform="translate(0, 40)">
+        <!-- Multi-System (Selected) -->
+        <rect x="0" y="0" width="85" height="32" rx="16" class="selected" stroke-width="1"/>
+        <text x="42" y="21" class="primary roboto" font-size="12" font-weight="500" text-anchor="middle">🎮 Multi</text>
+        
+        <!-- Console -->
+        <rect x="93" y="0" width="70" height="32" rx="16" fill="#F5F5F5" class="outline" stroke-width="1"/>
+        <text x="128" y="21" class="on-surface-variant roboto" font-size="12" text-anchor="middle">🕹️ Console</text>
+        
+        <!-- Handheld -->
+        <rect x="171" y="0" width="70" height="32" rx="16" fill="#F5F5F5" class="outline" stroke-width="1"/>
+        <text x="206" y="21" class="on-surface-variant roboto" font-size="12" text-anchor="middle">📱 Handheld</text>
+      </g>
+      
+      <!-- Emulator Location Items -->
+      <g transform="translate(0, 88)">
+        
+        <!-- RetroArch Saves -->
+        <rect x="0" y="0" width="220" height="56" rx="8" class="surface-variant outline" stroke-width="1"/>
+        <text x="8" y="20" class="roboto" font-size="16">🎮</text>
+        <text x="32" y="20" class="on-surface roboto" font-size="14" font-weight="500">RetroArch Saves</text>
+        <text x="32" y="35" class="primary roboto" font-size="12" font-weight="500">RetroArch</text>
+        <text x="32" y="48" class="on-surface-variant roboto" font-size="11">Battery saves and SRAM files</text>
+        <text x="200" y="32" class="on-surface-variant roboto" font-size="16">→</text>
+        
+        <!-- RetroArch States -->
+        <rect x="0" y="64" width="220" height="56" rx="8" class="surface-variant outline" stroke-width="1"/>
+        <text x="8" y="84" class="roboto" font-size="16">💾</text>
+        <text x="32" y="84" class="on-surface roboto" font-size="14" font-weight="500">RetroArch States</text>
+        <text x="32" y="99" class="primary roboto" font-size="12" font-weight="500">RetroArch</text>
+        <text x="32" y="112" class="on-surface-variant roboto" font-size="11">Save states for all cores</text>
+        <text x="200" y="96" class="on-surface-variant roboto" font-size="16">→</text>
+        
+        <!-- Lemuroid Saves (Selected) -->
+        <rect x="0" y="128" width="220" height="56" rx="8" class="selected" stroke-width="2"/>
+        <text x="8" y="148" class="roboto" font-size="16">🎮</text>
+        <text x="32" y="148" class="primary roboto" font-size="14" font-weight="500">Lemuroid Saves</text>
+        <text x="32" y="163" class="primary roboto" font-size="12" font-weight="500">Lemuroid</text>
+        <text x="32" y="176" class="primary roboto" font-size="11">Multi-system emulator saves</text>
+        <text x="200" y="160" class="primary roboto" font-size="16">→</text>
+        
+        <!-- More Items Indicator -->
+        <rect x="0" y="192" width="220" height="36" rx="8" fill="#FAFAFA" class="outline" stroke-width="1"/>
+        <text x="110" y="214" class="on-surface-variant roboto" font-size="12" text-anchor="middle">2 more emulators...</text>
+        
+      </g>
+      
+      <!-- Action Buttons -->
+      <g transform="translate(0, 340)">
+        <!-- Close Button -->
+        <rect x="156" y="0" width="64" height="36" rx="18" class="primary"/>
+        <text x="188" y="22" class="on-primary roboto" font-size="14" font-weight="500" text-anchor="middle">Close</text>
+      </g>
+      
+    </g>
+  </g>
+  
+  <!-- Home Indicator -->
+  <rect x="130" y="615" width="60" height="4" rx="2" fill="#606060"/>
+</svg>
