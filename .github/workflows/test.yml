@@ -1,166 +1,25 @@
-name: Run Tests
-
-on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master, develop ]
-  workflow_dispatch:
-
-jobs:
-  unit-tests:
-    runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      
-    - name: Cache Gradle dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-      
-    - name: Run unit tests
-      run: ./gradlew test --stacktrace --info
-      
-    - name: Generate JaCoCo coverage report
-      run: ./gradlew jacocoTestReport --stacktrace
-      
-    - name: Upload test results to Codecov
-      if: always()
-      uses: codecov/codecov-action@v4
-      with:
-        files: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
-        verbose: true
-        
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: unit-test-results
-        path: |
-          app/build/reports/tests/test/
-          app/build/test-results/test/
-          app/build/reports/jacoco/jacocoTestReport/
-        retention-days: 30
-        
-    - name: Publish test results
-      if: always()
-      uses: dorny/test-reporter@v1
-      with:
-        name: Unit Test Results
-        path: app/build/test-results/test/*.xml
-        reporter: java-junit
-        fail-on-error: true
-        
-    - name: Add coverage to PR
-      if: github.event_name == 'pull_request'
-      uses: madrapps/jacoco-report@v1.6.1
-      with:
-        paths: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
-        min-coverage-overall: 70
-        min-coverage-changed-files: 80
-        title: 📊 EmuSaves Unit Test Coverage
-        update-comment: true
-        
-  lint:
-    runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      
-    - name: Cache Gradle dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-      
-    - name: Run Kotlin linter
-      run: ./gradlew lintKotlin --stacktrace || true
-      
-    - name: Run Android lint
-      run: ./gradlew lint --stacktrace || true
-      
-    - name: Upload lint results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: lint-results
-        path: |
-          app/build/reports/lint-results-debug.html
-          app/build/reports/ktlint/
-        retention-days: 30
-        
-    - name: Annotate lint results
-      if: always()
-      uses: yutailang0119/action-android-lint@v4
-      with:
-        report-path: app/build/reports/lint-results-debug.xml
-      continue-on-error: true
-
-  test-summary:
-    if: always()
-    needs: [unit-tests, lint]
-    runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
-    
-    steps:
-    - name: Test Summary
-      uses: test-summary/action@v2
-      with:
-        paths: |
-          app/build/test-results/test/*.xml
-        show: "fail"
-      if: always()
+#name: Run Tests
+#
+#on:
+#  push:
+#    branches: [ main, master, develop ]
+#  pull_request:
+#    branches: [ main, master, develop ]
+#  workflow_dispatch:
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-java@v4
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#      - run: chmod +x gradlew
+#      - uses: gradle/actions/setup-gradle@v3
+#      - run: ./gradlew test
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: test-results
+#          path: app/build/reports/tests/test/

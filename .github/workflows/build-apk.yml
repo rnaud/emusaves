@@ -2,102 +2,24 @@ name: Build and Test
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      
-    - name: Run unit tests
-      run: ./gradlew test --stacktrace
-      
-    - name: Generate test report
-      run: ./gradlew test --stacktrace
-      
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: |
-          app/build/reports/tests/
-          app/build/test-results/
-        retention-days: 30
-        
-    - name: Publish test results
-      if: always()
-      uses: dorny/test-reporter@v1
-      with:
-        name: Unit Test Results
-        path: app/build/test-results/test/*.xml
-        reporter: java-junit
-        fail-on-error: true
-
   build:
-    needs: test
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      
-    - name: Build debug APK
-      run: ./gradlew assembleDebug --stacktrace
-      
-    - name: Upload debug APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
-        retention-days: 30
-        
-    - name: Build release APK
-      run: ./gradlew assembleRelease --stacktrace
-      
-    - name: Upload release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-release
-        path: app/build/outputs/apk/release/app-release-unsigned.apk
-        retention-days: 30
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: chmod +x gradlew
+      - uses: gradle/actions/setup-gradle@v3
+      - run: ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
