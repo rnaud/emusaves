@@ -4,6 +4,8 @@
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
+> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **Real screenshots needed** (currently using mockups)
+
 ## 📱 Screenshots
 
 ### Main Interface
@@ -64,28 +66,35 @@
 
 ---
 
-### 📸 Help Us Add Real Screenshots!
+## 📸 Real Screenshots Needed!
 
-**Want to contribute actual app screenshots?**
+**✅ Working APK Available**: The app is fully functional with the Quick Add feature implemented!  
+**❌ Using Placeholder Screenshots**: Current images are mockups showing intended design.
 
-1. **Install**: Download and install the latest APK from [Releases](../../releases)  
-2. **Setup**: Configure the app with your Synology NAS
-3. **Screenshot**: Take screenshots of key screens:
-   - Home screen with sync status
-   - Folder selection interface  
-   - Synology configuration dialog
-   - Sync progress screen
-   - Settings/scheduling options
+### 🎯 **Help Us Show the Real App!**
 
-4. **Submit**: Open an issue or PR with your screenshots
+**The APK works perfectly** - we just need someone to install it and take screenshots showing:
 
-**Screenshot Guidelines**:
-- **Resolution**: 1080x1920 or similar Android resolution
-- **Format**: PNG with transparent or white background
-- **Content**: Remove any personal information (NAS addresses, usernames)
-- **Naming**: `screenshot-[screen-name].png` (e.g., `screenshot-home.png`)
+1. **📱 Home Screen** - Quick Add button alongside Browse button
+2. **⭐ Quick Add Dialog** - Category tabs with 15+ emulator locations  
+3. **🔄 Sync Progress** - Real-time upload with file details
+4. **⚙️ Synology Config** - NAS setup dialog
+5. **📊 Multiple Folders** - Configured RetroArch, PPSSPP saves
 
-*Current screenshots are placeholder mockups showing the intended design.*
+### 🚀 **How to Help**:
+
+1. **Download**: Get latest APK from [Releases](../../releases) or [Actions](../../actions)
+2. **Install**: Enable "Unknown Sources" and install on Android device  
+3. **Screenshot**: Use our automated script: `./scripts/take-screenshots.sh`
+4. **Contribute**: Replace the placeholder images and submit a PR!
+
+**📖 Detailed Guide**: See [SCREENSHOT_GUIDE.md](SCREENSHOT_GUIDE.md) for complete instructions.
+
+---
+
+**Current Status**: ✅ **App works perfectly** | ❌ **Need real screenshots** | 🎯 **Easy contribution opportunity!**
+
+*Placeholders will be replaced once someone takes real screenshots of the working app.*
 
 ## ✨ Features
 
