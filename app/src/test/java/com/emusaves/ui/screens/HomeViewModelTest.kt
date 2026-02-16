@@ -91,24 +91,24 @@ class HomeViewModelTest {
     @Test
     fun `addFolder should call repository addFolder`() = runTest {
         // Given
-        whenever(repository.addFolder(uri)).thenReturn(Unit)
+        whenever(repository.addFolder(uri, null)).thenReturn(Unit)
         
         // When
-        viewModel.addFolder(uri)
+        viewModel.addFolder(uri, null)
         advanceUntilIdle()
         
         // Then
-        verify(repository).addFolder(uri)
+        verify(repository).addFolder(uri, null)
     }
 
     @Test
     fun `addFolder should set error on exception`() = runTest {
         // Given
         val errorMessage = "Failed to add folder"
-        whenever(repository.addFolder(uri)).thenThrow(RuntimeException(errorMessage))
+        whenever(repository.addFolder(uri, null)).thenThrow(RuntimeException(errorMessage))
         
         // When
-        viewModel.addFolder(uri)
+        viewModel.addFolder(uri, null)
         advanceUntilIdle()
         
         // Then

@@ -154,7 +154,7 @@ class EmusavesRepositoryTest {
             }.thenReturn(documentFile)
 
             // When
-            repository.addFolder(uri)
+            repository.addFolder(uri, null)
 
             // Then
             verify(syncFolderDao).insert(argThat<SyncFolderEntity> { entity ->
@@ -173,7 +173,7 @@ class EmusavesRepositoryTest {
             }.thenReturn(null)
 
             // When
-            repository.addFolder(uri)
+            repository.addFolder(uri, null)
 
             // Then
             verify(syncFolderDao, never()).insert(any())
