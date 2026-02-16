@@ -47,10 +47,10 @@ class HomeViewModel(private val context: Context) : ViewModel() {
         }
     }
 
-    fun addFolder(uri: Uri) {
+    fun addFolder(uri: Uri, name: String? = null) {
         viewModelScope.launch {
             try {
-                repository.addFolder(uri)
+                repository.addFolder(uri, name)
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.message) }
             }

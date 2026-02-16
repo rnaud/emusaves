@@ -42,11 +42,11 @@ class EmusavesRepository(private val context: Context) {
     fun getFolders(): Flow<List<SyncFolder>> = 
         syncFolderDao.getAll().map { list -> list.map { it.toDomain() } }
 
-    suspend fun addFolder(uri: Uri) {
-        val documentFile = DocumentFile.fromTreeUri(context, uri) ?: return
+    suspend fun addFolder(uri: Uri, name: String? = null) {
+        val documentFile = DocumentFile.fromTreeUri(context, uri)
         syncFolderDao.insert(SyncFolderEntity(
             uri = uri.toString(),
-            name = documentFile.name ?: "Unknown"
+            name = name ?: documentFile?.name ?: "Unknown"
         ))
     }
 

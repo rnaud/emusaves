@@ -200,7 +200,7 @@ fun HomeScreen() {
                 // Try to parse the URI and add the folder
                 try {
                     val uri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3A${location.path.removePrefix("/storage/emulated/0/").replace("/", "%2F")}")
-                    viewModel.addFolder(uri)
+                    viewModel.addFolder(uri, location.name)
                     showQuickAddDialog = false
                 } catch (e: Exception) {
                     // Fallback: launch folder picker at the location
