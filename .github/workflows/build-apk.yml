@@ -19,6 +19,7 @@ jobs:
       - run: chmod +x gradlew
       - uses: gradle/actions/setup-gradle@v3
       - name: Run tests
+        timeout-minutes: 10
         run: ./gradlew test --no-daemon
       - name: Build APK
         run: ./gradlew assembleDebug

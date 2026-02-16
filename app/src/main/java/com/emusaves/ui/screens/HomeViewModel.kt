@@ -21,8 +21,10 @@ data class HomeUiState(
     val error: String? = null
 )
 
-class HomeViewModel(private val context: Context) : ViewModel() {
-    private val repository = EmusavesRepository(context)
+class HomeViewModel(
+    private val context: Context,
+    private val repository: EmusavesRepository = EmusavesRepository(context)
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -117,10 +119,13 @@ class HomeViewModel(private val context: Context) : ViewModel() {
         _uiState.update { it.copy(error = null) }
     }
 
-    class Factory(private val context: Context) : ViewModelProvider.Factory {
+    class Factory(
+        private val context: Context,
+        private val repository: EmusavesRepository? = null
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return HomeViewModel(context) as T
+            return HomeViewModel(context, repository ?: EmusavesRepository(context)) as T
         }
     }
 }

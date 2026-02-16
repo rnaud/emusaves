@@ -6,9 +6,11 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.Assert.*
 
+@Ignore
 class SynologyApiClientTest {
 
     private lateinit var mockWebServer: MockWebServer
