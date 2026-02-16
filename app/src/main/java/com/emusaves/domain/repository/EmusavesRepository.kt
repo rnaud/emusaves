@@ -111,7 +111,7 @@ class EmusavesRepository(private val context: Context) {
             var uploadedCount = 0
             
             // Get local files
-            val localFiles = getLocalFiles(Uri.parse(folder.uri))
+            val localFiles = getLocalFiles(folder.uri)
             
             // Ensure remote folder exists
             client.createFolder("/Drive", "EmulatorBackups")

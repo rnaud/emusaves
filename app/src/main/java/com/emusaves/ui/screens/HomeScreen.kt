@@ -1,5 +1,6 @@
 package com.emusaves.ui.screens
 
+import com.emusaves.domain.model.SynologyConfig
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -264,7 +265,7 @@ private fun FoldersCard(
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
-                                Icons.Default.Folder,
+                                Icons.Default.Home,
                                 contentDescription = null,
                                 modifier = Modifier.size(20.dp)
                             )

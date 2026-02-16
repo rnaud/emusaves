@@ -145,7 +145,8 @@ class SynologyApiClient(
 
             val request = Request.Builder()
                 .url(url)
-                .post(requestBuilderWithSid(requestBody))
+                .addHeader("Cookie", "id=$sid")
+                .post(requestBody)
                 .build()
 
             val response = client.newCall(request).execute()
@@ -168,11 +169,6 @@ class SynologyApiClient(
             .url(url)
             .get()
             .build()
-    }
-
-    private fun requestBuilderWithSid(body: RequestBody): Request.Builder {
-        return Request.Builder()
-            .addHeader("Cookie", "id=$sid")
     }
 
     fun updateConfig(host: String, username: String, password: String) {
