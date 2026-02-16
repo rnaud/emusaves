@@ -4,7 +4,7 @@
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
-> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **High-quality screenshots** showing actual UI
+> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **High-quality PNG screenshots** generated from realistic mockups
 
 ## 📱 Screenshots
 
@@ -15,7 +15,7 @@
 <td align="center" width="33%">
 
 **Home Screen**  
-<img src="docs/screenshots/realistic-home-screen.svg" alt="Home Screen" width="250"/>
+<img src="docs/screenshots/screenshot-home.png" alt="Home Screen" width="250"/>
 
 *Main dashboard with ⭐ Quick Add button, sync status, and configured folders*
 
@@ -23,7 +23,7 @@
 <td align="center" width="33%">
 
 **Quick Add Dialog**  
-<img src="docs/screenshots/realistic-quick-add-dialog.svg" alt="Quick Add Dialog" width="250"/>
+<img src="docs/screenshots/screenshot-quick-add.png" alt="Quick Add Dialog" width="250"/>
 
 *Pre-configured emulator locations with category filtering*
 
@@ -31,7 +31,7 @@
 <td align="center" width="33%">
 
 **Sync Progress**  
-<img src="docs/screenshots/realistic-sync-progress.svg" alt="Sync Progress" width="250"/>
+<img src="docs/screenshots/screenshot-sync-progress.png" alt="Sync Progress" width="250"/>
 
 *Real-time upload progress with detailed file statistics*
 
@@ -47,7 +47,7 @@
 <td align="center" width="50%">
 
 **Synology Setup**  
-<img src="docs/screenshots/realistic-synology-config.svg" alt="Synology Configuration" width="250"/>
+<img src="docs/screenshots/screenshot-synology-config.png" alt="Synology Configuration" width="250"/>
 
 *Simple NAS configuration with connection testing*
 
@@ -66,10 +66,10 @@
 
 ---
 
-## 📸 Realistic App Screenshots
+## 📸 High-Quality App Screenshots
 
 **✅ Working APK Available**: The app is fully functional with the Quick Add feature implemented!  
-**✅ High-Quality Mockups**: Current screenshots accurately represent the actual app interface.
+**✅ PNG Screenshots**: High-quality 320x640 PNG images converted from realistic Material Design mockups.
 
 ### 🎯 **What the Screenshots Show:**
 
@@ -81,11 +81,12 @@
 
 ### 🎨 **Screenshot Quality:**
 
+- **High-Resolution PNG**: 320x640 pixel perfect images (50KB each)
 - **Material Design 3**: Accurate colors, typography, and component styling
 - **Realistic Data**: Shows actual emulator names (RetroArch, PPSSPP, etc.)
 - **Proper Layout**: Based on actual Jetpack Compose UI code
 - **Interactive Elements**: Buttons, cards, progress bars, and dialogs
-- **Phone Frames**: Professional mobile app presentation
+- **Professional Quality**: Converted from SVG using librsvg for crisp output
 
 ### 🚀 **Want Real Device Screenshots?**
 
@@ -98,7 +99,7 @@
 
 ---
 
-*Current screenshots are high-quality mockups that accurately represent the working app interface.*
+*Current screenshots are high-quality PNG images converted from realistic Material Design mockups that accurately represent the working app interface.*
 
 ## ✨ Features
 
