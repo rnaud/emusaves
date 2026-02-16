@@ -125,7 +125,7 @@ jacoco {
     toolVersion = "0.8.8"
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
     
@@ -178,13 +178,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     }
 }
 
-// Ensure jacocoTestReport runs after unit tests
-tasks.named("testDebugUnitTest") {
-    finalizedBy jacocoTestReport
-}
-
 // Task to run all tests and generate coverage report
-task testWithCoverage(dependsOn: ['testDebugUnitTest', 'jacocoTestReport']) {
+task testWithCoverage(dependsOn: ['test', 'jacocoTestReport']) {
     group = "verification"
     description = "Run all unit tests and generate coverage report"
 }
