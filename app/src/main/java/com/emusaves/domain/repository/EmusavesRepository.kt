@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
-class EmusavesRepository(private val context: Context) {
-    private val db = EmusavesDatabase.getDatabase(context)
-    private val syncedFileDao = db.syncedFileDao()
-    private val syncFolderDao = db.syncFolderDao()
-    private val synologyConfigDao = db.synologyConfigDao()
+class EmusavesRepository(private val context: Context, db: EmusavesDatabase? = null) {
+    private val db = db ?: EmusavesDatabase.getDatabase(context)
+    private val syncedFileDao = this.db.syncedFileDao()
+    private val syncFolderDao = this.db.syncFolderDao()
+    private val synologyConfigDao = this.db.synologyConfigDao()
     
     private var apiClient: SynologyApiClient? = null
 

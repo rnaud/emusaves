@@ -14,8 +14,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.Mockito.mockStatic
+import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
 import org.junit.Assert.*
 
@@ -44,17 +44,13 @@ class EmusavesRepositoryTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        
-        // Mock database.getDatabase to return our mock database
-        mockStatic(EmusavesDatabase::class.java).use { mockedStatic ->
-            mockedStatic.`when`<EmusavesDatabase> { EmusavesDatabase.getDatabase(context) }.thenReturn(database)
-            
-            whenever(database.syncFolderDao()).thenReturn(syncFolderDao)
-            whenever(database.synologyConfigDao()).thenReturn(synologyConfigDao)
-            whenever(database.syncedFileDao()).thenReturn(mock())
-            
-            repository = EmusavesRepository(context)
-        }
+
+        whenever(database.syncFolderDao()).thenReturn(syncFolderDao)
+        whenever(database.synologyConfigDao()).thenReturn(synologyConfigDao)
+        whenever(database.syncedFileDao()).thenReturn(mock())
+
+        // Use the test constructor to inject the mock database directly
+        repository = EmusavesRepository(context, database)
     }
 
     @Test

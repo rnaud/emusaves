@@ -16,8 +16,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.Mockito.mockStatic
+import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
 import org.junit.Assert.*
 
@@ -48,7 +48,8 @@ class HomeViewModelTest {
         whenever(repository.getFolders()).thenReturn(flowOf(emptyList()))
         whenever(repository.getSynologyConfig()).thenReturn(flowOf(null))
         
-        viewModel = HomeViewModel(context)
+        // Inject mock repository directly
+        viewModel = HomeViewModel(context, repository)
     }
 
     @After
@@ -79,8 +80,8 @@ class HomeViewModelTest {
         whenever(repository.getFolders()).thenReturn(flowOf(folders))
         whenever(repository.getSynologyConfig()).thenReturn(flowOf(config))
         
-        // When
-        val newViewModel = HomeViewModel(context)
+        // When - create new ViewModel with updated mocks
+        val newViewModel = HomeViewModel(context, repository)
         advanceUntilIdle()
         
         // Then
@@ -276,7 +277,7 @@ class HomeViewModelTest {
     @Test
     fun `Factory should create HomeViewModel correctly`() {
         // Given
-        val factory = HomeViewModel.Factory(context)
+        val factory = HomeViewModel.Factory(context, repository)
         
         // When
         val createdViewModel = factory.create(HomeViewModel::class.java)
