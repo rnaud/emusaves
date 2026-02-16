@@ -13,25 +13,25 @@
 <td align="center" width="33%">
 
 **Home Screen**  
-<img src="https://via.placeholder.com/300x600/1976D2/FFFFFF?text=📱+Home+Screen%0A%0A📊+Sync+Status%0A📁+Folders+(2)%0A🔧+Synology+NAS%0A⏰+Scheduled+Sync" alt="Home Screen" width="250"/>
+<img src="https://dummyimage.com/300x600/1976d2/ffffff&text=📱+EmuSaves+Home%0A%0A📊+Sync+Status%0A✓+Last:+Feb+16,+01:15%0A%0A📁+Backup+Folders+(2)%0A🎮+RetroArch+Saves%0A📱+PPSSPP+Saves%0A⭐+Quick+Add+|++Browse%0A%0A🔧+Synology+NAS+✓%0A⏰+Scheduled+Sync+●" alt="Home Screen" width="250"/>
 
-*Main dashboard with sync status, folder management, and configuration*
+*Main dashboard with Quick Add button, sync status, and configured folders*
 
 </td>
 <td align="center" width="33%">
 
-**Folder Selection**  
-<img src="https://via.placeholder.com/300x600/388E3C/FFFFFF?text=📱+Add+Folders%0A%0A📂+RetroArch+Saves%0A📂+PPSSPP+Saves%0A📂+Dolphin+Saves%0A%0A➕+Add+Folder" alt="Folder Selection" width="250"/>
+**Quick Add Dialog**  
+<img src="https://dummyimage.com/300x600/388e3c/ffffff&text=📱+Quick+Add+Dialog%0A%0A🎮+Multi-System+Selected%0A🕹️+Console+|+📱+Handheld%0A%0A🎮+RetroArch+Saves%0ARetroArch+•+SRAM+files%0A%0A💾+RetroArch+States%0ARetroArch+•+Save+states%0A%0A🎮+Lemuroid+Saves+✓%0ALemuroid+•+Multi-system" alt="Quick Add Dialog" width="250"/>
 
-*Easy folder picker with persistent permissions*
+*Pre-configured emulator locations organized by category*
 
 </td>
 <td align="center" width="33%">
 
 **Sync Progress**  
-<img src="https://via.placeholder.com/300x600/F57C00/FFFFFF?text=📱+Syncing...%0A%0A🔄+Uploading...%0A📊+Progress+65%25%0A📁+12+files+found%0A✅+8+uploaded" alt="Sync Progress" width="250"/>
+<img src="https://dummyimage.com/300x600/f57c00/ffffff&text=📱+Syncing+to+NAS...%0A%0A🔄+75%25+Complete%0A████████████░░░░%0A%0A📊+12+Files+|+📤+9+Uploaded%0A2.3MB+total+|+1.7MB+synced%0A%0A📄+Currently:%0Azelda_link_awakening.srm%0A%0A✓+mario_world.srm%0A✓+sonic_2.srm" alt="Sync Progress" width="250"/>
 
-*Real-time sync progress with detailed status*
+*Real-time upload progress with file details and statistics*
 
 </td>
 </tr>
@@ -126,8 +126,14 @@
 1. **Download**: Get the latest APK from [GitHub Releases](../../releases) or [Actions](../../actions)
 2. **Install**: Enable "Unknown Sources" and install the APK
 3. **Configure Synology**: Enter your NAS address, username, and app password
-4. **Select Folders**: Choose your emulator save directories (see 📂 Emulator Locations below)
+4. **Select Folders**: Use **Quick Add** ⭐ for instant setup or Browse manually (see 📂 Emulator Locations below)
 5. **Sync**: Tap "Sync Now" or enable scheduled backups
+
+### 🆕 **New Quick Add Feature!**
+- **Tap "⭐ Quick Add"** → Select from 15+ pre-configured emulator locations
+- **Organized by category**: Multi-System, Console, Handheld, Arcade emulators
+- **One-tap selection**: No more navigating complex folder structures
+- **Still works**: Manual browsing available for custom locations
 
 ## 📂 Emulator Save Locations
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="600" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="600" fill="#FAFAFA"/>
+  
+  <!-- Status Bar -->
+  <rect width="300" height="24" fill="#1976D2"/>
+  <text x="12" y="18" font-family="Roboto, sans-serif" font-size="12" fill="white" font-weight="500">9:43</text>
+  <text x="260" y="18" font-family="Roboto, sans-serif" font-size="12" fill="white" text-anchor="end">95%</text>
+  
+  <!-- Top App Bar -->
+  <rect y="24" width="300" height="56" fill="#E3F2FD"/>
+  <text x="16" y="58" font-family="Roboto, sans-serif" font-size="20" fill="#1976D2" font-weight="500">EmuSaves</text>
+  
+  <!-- Content -->
+  <g transform="translate(16, 96)">
+    <!-- Active Sync Status Card -->
+    <rect width="268" height="200" rx="12" fill="white" stroke="#4CAF50" stroke-width="2"/>
+    <text x="16" y="28" font-family="Roboto, sans-serif" font-size="16" fill="#212121" font-weight="500">Syncing...</text>
+    
+    <!-- Animated spinner -->
+    <g transform="translate(236, 20)">
+      <circle r="12" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+      <path d="M 0,-12 A 12,12 0 0,1 8.485,-8.485" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="1s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <text x="16" y="52" font-family="Roboto, sans-serif" font-size="14" fill="#4CAF50" font-weight="500">Uploading to nas.local...</text>
+    
+    <!-- Progress Bar -->
+    <rect x="16" y="68" width="236" height="4" rx="2" fill="#E0E0E0"/>
+    <rect x="16" y="68" width="177" height="4" rx="2" fill="#4CAF50"/>
+    <text x="134" y="88" font-family="Roboto, sans-serif" font-size="14" fill="#4CAF50" text-anchor="middle" font-weight="500">75% Complete</text>
+    
+    <!-- File Stats -->
+    <rect x="16" y="104" width="108" height="80" rx="8" fill="#E8F5E8"/>
+    <text x="70" y="124" font-family="Roboto, sans-serif" font-size="20" fill="#4CAF50" text-anchor="middle" font-weight="bold">12</text>
+    <text x="70" y="142" font-family="Roboto, sans-serif" font-size="12" fill="#4CAF50" text-anchor="middle">Files Found</text>
+    <text x="70" y="158" font-family="Roboto, sans-serif" font-size="10" fill="#757575" text-anchor="middle">RetroArch, PPSSPP</text>
+    <text x="70" y="172" font-family="Roboto, sans-serif" font-size="10" fill="#757575" text-anchor="middle">2.3 MB total</text>
+    
+    <rect x="136" y="104" width="116" height="80" rx="8" fill="#E3F2FD"/>
+    <text x="194" y="124" font-family="Roboto, sans-serif" font-size="20" fill="#1976D2" text-anchor="middle" font-weight="bold">9</text>
+    <text x="194" y="142" font-family="Roboto, sans-serif" font-size="12" fill="#1976D2" text-anchor="middle">Uploaded</text>
+    <text x="194" y="158" font-family="Roboto, sans-serif" font-size="10" fill="#757575" text-anchor="middle">1.7 MB synced</text>
+    <text x="194" y="172" font-family="Roboto, sans-serif" font-size="10" fill="#4CAF50" text-anchor="middle">✓ No conflicts</text>
+    
+    <!-- Current File -->
+    <g transform="translate(0, 220)">
+      <text x="16" y="0" font-family="Roboto, sans-serif" font-size="14" fill="#757575">Currently uploading:</text>
+      <rect x="16" y="8" width="236" height="32" rx="4" fill="#FFF3E0" stroke="#FF9800" stroke-width="1"/>
+      <text x="20" y="28" font-family="Roboto, sans-serif" font-size="12" fill="#E65100" font-weight="500">zelda_link_awakening.srm</text>
+      <text x="248" y="28" font-family="Roboto, sans-serif" font-size="12" fill="#FF9800" text-anchor="end">47%</text>
+    </g>
+    
+    <!-- Recent Activity -->
+    <g transform="translate(0, 280)">
+      <text x="16" y="0" font-family="Roboto, sans-serif" font-size="14" fill="#757575">Recent uploads:</text>
+      <text x="16" y="20" font-family="Roboto, sans-serif" font-size="11" fill="#4CAF50">✓ mario_world.srm (32 KB)</text>
+      <text x="16" y="36" font-family="Roboto, sans-serif" font-size="11" fill="#4CAF50">✓ sonic_2.srm (16 KB)</text>
+      <text x="16" y="52" font-family="Roboto, sans-serif" font-size="11" fill="#4CAF50">✓ pokemon_red.sav (128 KB)</text>
+    </g>
+    
+    <!-- Cancel Button -->
+    <rect x="16" y="380" width="236" height="40" rx="20" fill="#FFEBEE" stroke="#F44336" stroke-width="1"/>
+    <text x="134" y="404" font-family="Roboto, sans-serif" font-size="14" fill="#D32F2F" text-anchor="middle" font-weight="500">Cancel Sync</text>
+  </g>
+</svg>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="600" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="600" fill="#000000" fill-opacity="0.5"/>
+  
+  <!-- Dialog Background -->
+  <rect x="20" y="80" width="260" height="440" rx="16" fill="white"/>
+  
+  <!-- Dialog Content -->
+  <g transform="translate(36, 96)">
+    <!-- Title -->
+    <text x="0" y="24" font-family="Roboto, sans-serif" font-size="18" fill="#212121" font-weight="500">Quick Add Emulator Folders</text>
+    <text x="0" y="48" font-family="Roboto, sans-serif" font-size="14" fill="#757575">Select common emulator save locations:</text>
+    
+    <!-- Category Chips -->
+    <g transform="translate(0, 64)">
+      <!-- Multi-System (Selected) -->
+      <rect x="0" y="0" width="85" height="32" rx="16" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+      <text x="42.5" y="21" font-family="Roboto, sans-serif" font-size="12" fill="#1976D2" text-anchor="middle" font-weight="500">🎮 Multi</text>
+      
+      <!-- Console -->
+      <rect x="93" y="0" width="70" height="32" rx="16" fill="#F5F5F5"/>
+      <text x="128" y="21" font-family="Roboto, sans-serif" font-size="12" fill="#757575" text-anchor="middle">🕹️ Console</text>
+      
+      <!-- Handheld -->
+      <rect x="171" y="0" width="70" height="32" rx="16" fill="#F5F5F5"/>
+      <text x="206" y="21" font-family="Roboto, sans-serif" font-size="12" fill="#757575" text-anchor="middle">📱 Handheld</text>
+    </g>
+    
+    <!-- Location Cards -->
+    <g transform="translate(0, 112)">
+      <!-- RetroArch Saves -->
+      <rect x="0" y="0" width="228" height="56" rx="8" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="8" y="20" font-family="Roboto, sans-serif" font-size="16">🎮</text>
+      <text x="28" y="20" font-family="Roboto, sans-serif" font-size="14" fill="#212121" font-weight="500">RetroArch Saves</text>
+      <text x="28" y="36" font-family="Roboto, sans-serif" font-size="12" fill="#1976D2" font-weight="500">RetroArch</text>
+      <text x="28" y="48" font-family="Roboto, sans-serif" font-size="11" fill="#757575">Battery saves and SRAM files</text>
+      <text x="208" y="32" font-family="Roboto, sans-serif" font-size="16" fill="#757575">→</text>
+      
+      <!-- RetroArch States -->
+      <rect x="0" y="64" width="228" height="56" rx="8" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="8" y="84" font-family="Roboto, sans-serif" font-size="16">💾</text>
+      <text x="28" y="84" font-family="Roboto, sans-serif" font-size="14" fill="#212121" font-weight="500">RetroArch States</text>
+      <text x="28" y="100" font-family="Roboto, sans-serif" font-size="12" fill="#1976D2" font-weight="500">RetroArch</text>
+      <text x="28" y="112" font-family="Roboto, sans-serif" font-size="11" fill="#757575">Save states for all cores</text>
+      <text x="208" y="96" font-family="Roboto, sans-serif" font-size="16" fill="#757575">→</text>
+      
+      <!-- Highlighted item -->
+      <rect x="0" y="128" width="228" height="56" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+      <text x="8" y="148" font-family="Roboto, sans-serif" font-size="16">🎮</text>
+      <text x="28" y="148" font-family="Roboto, sans-serif" font-size="14" fill="#1976D2" font-weight="500">Lemuroid Saves</text>
+      <text x="28" y="164" font-family="Roboto, sans-serif" font-size="12" fill="#1976D2" font-weight="500">Lemuroid</text>
+      <text x="28" y="176" font-family="Roboto, sans-serif" font-size="11" fill="#1565C0">Multi-system emulator saves</text>
+      <text x="208" y="160" font-family="Roboto, sans-serif" font-size="16" fill="#1976D2">→</text>
+      
+      <!-- More items indicator -->
+      <rect x="0" y="192" width="228" height="40" rx="8" fill="#FAFAFA"/>
+      <text x="114" y="216" font-family="Roboto, sans-serif" font-size="12" fill="#9E9E9E" text-anchor="middle">2 more emulators...</text>
+    </g>
+    
+    <!-- Close Button -->
+    <rect x="164" y="352" width="64" height="36" rx="18" fill="#1976D2"/>
+    <text x="196" y="374" font-family="Roboto, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="500">Close</text>
+  </g>
+</svg>

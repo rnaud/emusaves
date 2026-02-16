@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmuSaves Screenshots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .phone {
+            width: 300px;
+            height: 600px;
+            background: #000;
+            border-radius: 20px;
+            padding: 4px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fafafa;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 24px;
+            background: #1976d2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 12px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .app-bar {
+            height: 56px;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .app-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #1976d2;
+        }
+
+        .content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+        }
+
+        .sync-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 18px;
+            height: 36px;
+            padding: 0 24px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .folder-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .folder-item:last-child {
+            border-bottom: none;
+        }
+
+        .folder-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .folder-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4caf50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .folder-name {
+            font-size: 14px;
+            color: #212121;
+        }
+
+        .delete-button {
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .quick-add-button {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 1px solid #1976d2;
+            border-radius: 18px;
+            height: 36px;
+            padding: 0 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .browse-button {
+            background: transparent;
+            color: #757575;
+            border: 1px solid #757575;
+            border-radius: 18px;
+            height: 36px;
+            padding: 0 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .config-info {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 12px;
+        }
+
+        .config-button {
+            background: transparent;
+            color: #757575;
+            border: 1px solid #757575;
+            border-radius: 16px;
+            height: 32px;
+            padding: 0 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-info h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 4px;
+        }
+
+        .schedule-info p {
+            font-size: 12px;
+            color: #757575;
+        }
+
+        .toggle {
+            width: 48px;
+            height: 24px;
+            background: #4caf50;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        /* Dialog Overlay */
+        .dialog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dialog {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-height: 80%;
+            overflow-y: auto;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .dialog-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 8px;
+        }
+
+        .dialog-subtitle {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 16px;
+        }
+
+        .category-chips {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #757575;
+            cursor: pointer;
+        }
+
+        .chip.selected {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #1976d2;
+        }
+
+        .location-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .location-item {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .location-item:hover {
+            background: #e3f2fd;
+            border-color: #1976d2;
+        }
+
+        .location-item.selected {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            border-width: 2px;
+        }
+
+        .location-icon {
+            font-size: 16px;
+        }
+
+        .location-info h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #212121;
+            margin-bottom: 2px;
+        }
+
+        .location-info .emulator {
+            font-size: 12px;
+            color: #1976d2;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .location-info .description {
+            font-size: 11px;
+            color: #757575;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        .text-button {
+            background: transparent;
+            border: none;
+            color: #1976d2;
+            font-weight: 500;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Sync Progress Screen */
+        .progress-card {
+            border: 2px solid #4caf50;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #e0e0e0;
+            border-top: 2px solid #4caf50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4caf50;
+            width: 75%;
+            border-radius: 2px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: #e8f5e8;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.blue {
+            background: #e3f2fd;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .stat-card.blue .stat-number {
+            color: #1976d2;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #4caf50;
+            margin-top: 4px;
+        }
+
+        .stat-card.blue .stat-label {
+            color: #1976d2;
+        }
+
+        .current-file {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        .file-name {
+            font-size: 12px;
+            color: #e65100;
+            font-weight: 500;
+        }
+
+        .recent-files {
+            margin-top: 16px;
+        }
+
+        .recent-files h4 {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 8px;
+        }
+
+        .recent-file {
+            font-size: 11px;
+            color: #4caf50;
+            margin-bottom: 4px;
+        }
+
+        .cancel-button {
+            background: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #f44336;
+            border-radius: 20px;
+            height: 40px;
+            width: 100%;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Screen -->
+    <div class="phone" id="home-screen">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>100%</span>
+            </div>
+            <div class="app-bar">
+                <div class="app-title">EmuSaves</div>
+            </div>
+            <div class="content">
+                <!-- Sync Status Card -->
+                <div class="card">
+                    <div class="card-title">
+                        Sync Status
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="config-info">Last sync: Feb 16, 01:15</div>
+                    <button class="sync-button">Sync Now</button>
+                </div>
+
+                <!-- Folders Card -->
+                <div class="card">
+                    <div class="card-title">Backup Folders</div>
+                    <div class="folder-item">
+                        <div class="folder-info">
+                            <div class="folder-icon">🎮</div>
+                            <div class="folder-name">RetroArch Saves</div>
+                        </div>
+                        <button class="delete-button">×</button>
+                    </div>
+                    <div class="folder-item">
+                        <div class="folder-info">
+                            <div class="folder-icon">📱</div>
+                            <div class="folder-name">PPSSPP Saves</div>
+                        </div>
+                        <button class="delete-button">×</button>
+                    </div>
+                    <div class="button-row">
+                        <button class="quick-add-button">⭐ Quick Add</button>
+                        <button class="browse-button">+ Browse</button>
+                    </div>
+                </div>
+
+                <!-- Synology Card -->
+                <div class="card">
+                    <div class="card-title">
+                        Synology NAS
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="config-info">nas.local → /Drive/EmulatorBackups</div>
+                    <button class="config-button">Update Configuration</button>
+                </div>
+
+                <!-- Scheduled Sync Card -->
+                <div class="card">
+                    <div class="schedule-row">
+                        <div class="schedule-info">
+                            <h3>Scheduled Sync</h3>
+                            <p>Every 6 hours on Wi-Fi + charging</p>
+                        </div>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Add Dialog -->
+    <div class="phone" id="quick-add-screen">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>100%</span>
+            </div>
+            <div class="app-bar">
+                <div class="app-title">EmuSaves</div>
+            </div>
+            <div class="content">
+                <div class="card">
+                    <div class="card-title">Backup Folders</div>
+                    <div class="button-row">
+                        <button class="quick-add-button">⭐ Quick Add</button>
+                        <button class="browse-button">+ Browse</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dialog Overlay -->
+            <div class="dialog-overlay">
+                <div class="dialog">
+                    <div class="dialog-title">Quick Add Emulator Folders</div>
+                    <div class="dialog-subtitle">Select common emulator save locations:</div>
+                    
+                    <div class="category-chips">
+                        <div class="chip selected">🎮 Multi-System</div>
+                        <div class="chip">🕹️ Console</div>
+                        <div class="chip">📱 Handheld</div>
+                    </div>
+                    
+                    <div class="location-list">
+                        <div class="location-item">
+                            <div class="location-icon">🎮</div>
+                            <div class="location-info">
+                                <h4>RetroArch Saves</h4>
+                                <div class="emulator">RetroArch</div>
+                                <div class="description">Battery saves and SRAM files</div>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">💾</div>
+                            <div class="location-info">
+                                <h4>RetroArch States</h4>
+                                <div class="emulator">RetroArch</div>
+                                <div class="description">Save states for all cores</div>
+                            </div>
+                        </div>
+                        <div class="location-item selected">
+                            <div class="location-icon">🎮</div>
+                            <div class="location-info">
+                                <h4>Lemuroid Saves</h4>
+                                <div class="emulator">Lemuroid</div>
+                                <div class="description">Multi-system emulator saves</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dialog-actions">
+                        <button class="text-button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sync Progress Screen -->
+    <div class="phone" id="sync-progress-screen">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:43</span>
+                <span>95%</span>
+            </div>
+            <div class="app-bar">
+                <div class="app-title">EmuSaves</div>
+            </div>
+            <div class="content">
+                <!-- Active Sync Status Card -->
+                <div class="card progress-card">
+                    <div class="progress-header">
+                        <div class="card-title" style="margin-bottom: 0;">Syncing...</div>
+                        <div class="spinner"></div>
+                    </div>
+                    <div style="color: #4caf50; font-size: 14px; font-weight: 500; margin-bottom: 8px;">
+                        Uploading to nas.local...
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div style="text-align: center; color: #4caf50; font-weight: 500; margin-top: 8px;">
+                        75% Complete
+                    </div>
+                    
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Files Found</div>
+                            <div style="font-size: 10px; color: #757575; margin-top: 4px;">RetroArch, PPSSPP</div>
+                            <div style="font-size: 10px; color: #757575;">2.3 MB total</div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="stat-number">9</div>
+                            <div class="stat-label">Uploaded</div>
+                            <div style="font-size: 10px; color: #757575; margin-top: 4px;">1.7 MB synced</div>
+                            <div style="font-size: 10px; color: #4caf50;">✓ No conflicts</div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 14px; color: #757575; margin-top: 16px; margin-bottom: 8px;">
+                        Currently uploading:
+                    </div>
+                    <div class="current-file">
+                        <div class="file-name">zelda_link_awakening.srm</div>
+                    </div>
+                    
+                    <div class="recent-files">
+                        <h4>Recent uploads:</h4>
+                        <div class="recent-file">✓ mario_world.srm (32 KB)</div>
+                        <div class="recent-file">✓ sonic_2.srm (16 KB)</div>
+                        <div class="recent-file">✓ pokemon_red.sav (128 KB)</div>
+                    </div>
+                    
+                    <button class="cancel-button">Cancel Sync</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple screenshot capture helper
+        function captureScreen(elementId) {
+            const element = document.getElementById(elementId);
+            // In a real scenario, you'd use html2canvas or similar
+            console.log(`Capturing ${elementId}`);
+        }
+        
+        // Add click handlers for demo
+        document.querySelectorAll('.quick-add-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log('Quick Add clicked');
+            });
+        });
+    </script>
+</body>
+</html>
