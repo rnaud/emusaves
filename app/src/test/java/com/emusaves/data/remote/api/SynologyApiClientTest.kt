@@ -1,4 +1,3 @@
-import org.junit.Ignore
 package com.emusaves.data.remote.api
 
 import com.google.gson.Gson
@@ -7,6 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.Assert.*
 
