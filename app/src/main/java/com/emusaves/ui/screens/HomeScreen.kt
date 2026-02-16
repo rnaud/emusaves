@@ -139,8 +139,8 @@ fun HomeScreen() {
                     OutlinedTextField(
                         value = synologyHost,
                         onValueChange = { synologyHost = it },
-                        label = { Text("NAS Address (e.g., nas.local or yourname.quickconnect.to)") },
-                        placeholder = { Text("nas.local or username.quickconnect.to") },
+                        label = { Text("NAS Address (e.g., nas.local or QuickConnect username)") },
+                        placeholder = { Text("nas.local or username") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )

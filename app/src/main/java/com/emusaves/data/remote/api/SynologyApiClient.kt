@@ -25,11 +25,17 @@ class SynologyApiClient(
         .hostnameVerifier { _, _ -> true } // Allow self-signed certs for QuickConnect
         .build()
 
+    private val normalizedHost: String
+        get() = when {
+            host.contains(".") -> host
+            else -> "$host.quickconnect.to"
+        }
+
     private val baseUrl: String 
-        get() = if (host.contains("quickconnect.to")) {
-            "https://$host/webapi"
+        get() = if (normalizedHost.contains("quickconnect.to")) {
+            "https://$normalizedHost/webapi"
         } else {
-            "http://$host:5000/webapi"
+            "http://$normalizedHost:5000/webapi"
         }
 
     suspend fun login(): Result<String> = withContext(Dispatchers.IO) {
