@@ -16,6 +16,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
+import org.mockito.kotlin.mockStatic
 import org.junit.Assert.*
 
 class EmusavesRepositoryTest {
@@ -116,12 +117,10 @@ class EmusavesRepositoryTest {
         // Given
         val folderEntities = listOf(
             SyncFolderEntity(
-                id = 1,
                 uri = "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.retroarch%2Ffiles%2Fsaves",
                 name = "RetroArch Saves"
             ),
             SyncFolderEntity(
-                id = 2,
                 uri = "content://com.android.externalstorage.documents/tree/primary%3APSP%2FSAVEDATA",
                 name = "PPSSPP Saves"
             )

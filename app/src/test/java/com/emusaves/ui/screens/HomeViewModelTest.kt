@@ -18,6 +18,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.*
+import org.mockito.kotlin.mockStatic
 import org.junit.Assert.*
 
 @ExperimentalCoroutinesApi
