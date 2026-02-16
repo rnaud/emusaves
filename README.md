@@ -6,8 +6,6 @@
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
-> **📱 Status**: ✅ **Fully functional APK available** with Quick Add feature | 📸 **High-quality PNG screenshots** generated from realistic mockups
-
 ## 📱 Screenshots
 
 ### Main Interface
@@ -54,54 +52,9 @@
 *Simple NAS configuration with connection testing*
 
 </td>
-<td align="center" width="50%">
-
-**Background Sync**  
-<img src="https://via.placeholder.com/300x600/D32F2F/FFFFFF?text=📱+Schedule%0A%0A⏰+Every+6+hours%0A📶+Wi-Fi+only%0A🔋+While+charging%0A📊+Last:+2h+ago%0A%0A🔘+Enabled" alt="Scheduled Sync Settings" width="250"/>
-
-*Automated backup scheduling options*
-
-</td>
 </tr>
 </table>
 </div>
-
----
-
-## 📸 High-Quality App Screenshots
-
-**✅ Working APK Available**: The app is fully functional with the Quick Add feature implemented!  
-**✅ PNG Screenshots**: High-quality 320x640 PNG images converted from realistic Material Design mockups.
-
-### 🎯 **What the Screenshots Show:**
-
-1. **📱 Home Screen** - Material Design 3 interface with ⭐ Quick Add button
-2. **⭐ Quick Add Dialog** - Category filtering with 15+ pre-configured emulators
-3. **🔄 Sync Progress** - Real-time upload progress with detailed statistics
-4. **⚙️ Synology Config** - Clean NAS configuration dialog
-5. **📊 Professional UI** - Authentic Android design patterns
-
-### 🎨 **Screenshot Quality:**
-
-- **High-Resolution PNG**: 320x640 pixel perfect images (50KB each)
-- **Material Design 3**: Accurate colors, typography, and component styling
-- **Realistic Data**: Shows actual emulator names (RetroArch, PPSSPP, etc.)
-- **Proper Layout**: Based on actual Jetpack Compose UI code
-- **Interactive Elements**: Buttons, cards, progress bars, and dialogs
-- **Professional Quality**: Converted from SVG using librsvg for crisp output
-
-### 🚀 **Want Real Device Screenshots?**
-
-1. **Download**: Get latest APK from [Releases](../../releases) or [Actions](../../actions)
-2. **Install**: Enable "Unknown Sources" and install on Android device  
-3. **Screenshot**: Use our automated script: `./scripts/take-screenshots.sh`
-4. **Contribute**: Submit real device screenshots via PR!
-
-**📖 Detailed Guide**: See [SCREENSHOT_GUIDE.md](SCREENSHOT_GUIDE.md) for complete instructions.
-
----
-
-*Current screenshots are high-quality PNG images converted from realistic Material Design mockups that accurately represent the working app interface.*
 
 ## ✨ Features
 
@@ -111,6 +64,12 @@
 - **Folder Management**: Select multiple emulator directories to monitor
 - **Real-time Sync Status**: Track sync progress and view last backup timestamps
 - **Scheduled Backups**: Configurable background sync (every 6 hours on Wi-Fi + charging)
+
+### ⭐ Quick Add Feature
+- **15+ Pre-configured Emulator Locations**: Instantly add popular emulator save folders
+- **Category Filtering**: Multi-System 🎮, Console 🕹️, Handheld 📱, Arcade 🕹️
+- **One-tap Selection**: No more manual folder browsing for common emulators
+- **Material Design 3 UI**: Clean category chips with intuitive selection
 
 ### 🛠 Technical Features
 - **Modern Android**: Built with Kotlin and Jetpack Compose
@@ -127,145 +86,61 @@
 - 🎮 **PPSSPP** - PSP save data and states  
 - 🎮 **Dolphin** - GameCube/Wii saves and memory cards
 - 🎮 **AetherSX2** - PS2 save data and states
-- 🎮 **ePSXe** - PS1 save states and memory cards
-- 🎮 **DraStic** - Nintendo DS save backups
 - 🎮 **My Boy!** - Game Boy Advance saves
-- 🎮 **Pizza Boy** - GBA/GBC save files
-- 🎮 **Snes9x EX+** - Super Nintendo saves
-- 🎮 **MD.emu** - Genesis/Mega Drive saves
-- 🎮 **MAME4droid** - Arcade machine saves
+- 🎮 **DraStic** - Nintendo DS saves
+- 🎮 **Pizza Boy** - Game Boy/Color saves
+- 🎮 **Lemuroid** - Multi-system saves
 
-**Any emulator that saves files to accessible folders will work!**
+## 🚀 Getting Started
 
-## 🚀 Quick Start
+### Prerequisites
+- Android 8.0+ (API level 26)
+- Synology NAS with FileStation enabled
+- Wi-Fi connection to your local network
 
-1. **Download**: Get the latest APK from [GitHub Releases](../../releases) or [Actions](../../actions)
-2. **Install**: Enable "Unknown Sources" and install the APK
-3. **Configure Synology**: Enter your NAS address, username, and app password
-4. **Select Folders**: Use **Quick Add** ⭐ for instant setup or Browse manually (see 📂 Emulator Locations below)
-5. **Sync**: Tap "Sync Now" or enable scheduled backups
+### Installation
+1. Download the latest APK from [Releases](../../releases)
+2. Install the APK (enable "Unknown Sources" if needed)
+3. Configure your Synology NAS connection
+4. Add your emulator folders using Quick Add or Browse
+5. Enable background sync for automatic backups
 
-### 🆕 **New Quick Add Feature!**
-- **Tap "⭐ Quick Add"** → Select from 15+ pre-configured emulator locations
-- **Organized by category**: Multi-System, Console, Handheld, Arcade emulators
-- **One-tap selection**: No more navigating complex folder structures
-- **Still works**: Manual browsing available for custom locations
+### Quick Setup
+1. **Connect to NAS**: Enter your Synology NAS address, username, and app password
+2. **Add Folders**: Use Quick Add for popular emulators or Browse for custom locations
+3. **Start Backup**: Tap "Sync Now" or enable scheduled sync for automatic backups
 
-## 📂 Emulator Save Locations
+## 🔧 Configuration
 
-### Common Android Emulator Save Folders
-**Copy these paths to quickly find your save files:**
+### Synology NAS Setup
+1. Enable FileStation on your Synology NAS
+2. Create a dedicated user account for EmuSaves
+3. Generate an app-specific password for the account
+4. Create a backup directory (e.g., `/Drive/EmulatorBackups`)
 
-#### 🎮 Multi-System Emulators
-- **RetroArch**: `/storage/emulated/0/Android/data/com.retroarch/files/saves/`
-- **RetroArch (States)**: `/storage/emulated/0/Android/data/com.retroarch/files/states/`
+### Folder Selection
+- **Quick Add**: Choose from 15+ pre-configured emulator locations
+- **Browse**: Manually select any folder containing save files
+- **Multiple Folders**: Add as many emulator directories as needed
 
-#### 🎯 Console-Specific Emulators  
-- **PPSSPP (PSP)**: `/storage/emulated/0/PSP/SAVEDATA/`
-- **Dolphin (GameCube/Wii)**: `/storage/emulated/0/dolphin-emu/Saves/`
-- **AetherSX2 (PS2)**: `/storage/emulated/0/Android/data/xyz.aethersx2.android/files/saves/`
-- **ePSXe (PS1 States)**: `/storage/emulated/0/epsxe/sstates/`
-- **ePSXe (PS1 Memory Cards)**: `/storage/emulated/0/epsxe/memcards/`
-- **DraStic (DS)**: `/storage/emulated/0/DraStic/backup/`
+### Sync Options
+- **Manual Sync**: Tap "Sync Now" for immediate backup
+- **Scheduled Sync**: Automatic backup every 6 hours (Wi-Fi + charging)
+- **Progress Tracking**: Real-time sync status and file counts
 
-#### 🕹️ Handheld Emulators
-- **My Boy! (GBA)**: `/storage/emulated/0/MyBoy/saves/`
-- **Pizza Boy GBA**: `/storage/emulated/0/Android/data/it.dbtecno.pizzaboygba/files/`
-- **Pizza Boy GBC**: `/storage/emulated/0/Android/data/it.dbtecno.pizzaboygbc/files/`
-- **Snes9x EX+**: `/storage/emulated/0/Android/data/com.explusalpha.Snes9xPlus/files/saves/`
-- **MD.emu (Genesis)**: `/storage/emulated/0/Android/data/com.explusalpha.MdEmu/files/saves/`
+## 📁 Project Structure
 
-#### 🎪 Arcade Emulators
-- **MAME4droid**: `/storage/emulated/0/MAME4droid/saves/`
-- **FBNeo**: `/storage/emulated/0/Android/data/com.explusalpha.NeoEmu/files/saves/`
-
-### 📋 How to Use These Paths
-
-1. **Copy Path**: Long-press and copy any path above that matches your emulator
-2. **Open EmuSaves**: Tap "Add Folder" in the app
-3. **Navigate**: Use the file picker to navigate to the copied path
-   - Start from "Internal Storage" or "Primary" 
-   - Navigate through: `Android` → `data` → `[app name]` → `files` → `saves`
-4. **Grant Permission**: Select the folder and grant persistent access
-5. **Verify**: Check that save files appear in the app
-
-### 💡 Pro Tips
-
-- **Multiple Folders**: Add separate folders for different emulators or save types
-- **States vs Saves**: Some emulators separate save states from battery saves - add both!
-- **Check First**: Verify the folder contains `.srm`, `.sav`, `.state`, or similar save files
-- **Permissions**: Grant access to the deepest folder containing saves (not just the app folder)
-
-## ⚙️ Setup Guide
-
-### Synology NAS Configuration
-1. **Enable FileStation**: Go to Package Center → Install File Station
-2. **Create App Password**: 
-   - Control Panel → User & Group → [Your User] → Edit → Applications
-   - Create new application password for "EmuSaves"
-3. **Test Connection**: Use your NAS local IP (e.g., `192.168.1.100` or `nas.local`)
-
-### Android Setup
-1. **Folder Selection**: Use the document picker to grant access to your emulator directories
-2. **Background Sync**: Enable for automatic backups when charging + on Wi-Fi
-3. **Manual Sync**: Tap "Sync Now" to backup immediately
-
-## 🔧 Building the APK
-
-### Automatic Builds (GitHub Actions)
-
-APK files are automatically built by GitHub Actions on every push to `main` and on pull requests.
-
-**To download the APK:**
-1. Go to the [Actions tab](../../actions) in the repository
-2. Click on the latest "Build APK" workflow run
-3. Scroll down to the "Artifacts" section
-4. Download either:
-   - `app-debug` - Debug version of the APK
-   - `app-release` - Release version of the APK (unsigned)
-
-The artifacts are retained for 30 days.
-
-### Manual Build (Local)
-
-**Requirements:**
-- JDK 17 or higher
-- Android SDK (automatically downloaded by Gradle)
-
-**Build commands:**
-```bash
-# Build debug APK
-./gradlew assembleDebug
-
-# Build release APK
-./gradlew assembleRelease
 ```
-
-**Output locations:**
-- Debug: `app/build/outputs/apk/debug/app-debug.apk`
-- Release: `app/build/outputs/apk/release/app-release-unsigned.apk`
-
-## 🏗 Architecture
-
-### Tech Stack
-- **Language**: Kotlin
-- **UI Framework**: Jetpack Compose with Material Design 3
-- **Database**: Room (SQLite)
-- **Background Processing**: WorkManager
-- **Networking**: OkHttp3 + Retrofit-style API client
-- **Storage**: Android Storage Access Framework (SAF)
-
-### Project Structure
-```
-app/src/main/java/com/emusaves/
-├── data/
-│   ├── local/          # Room database, DAOs, entities
-│   └── remote/         # Synology API client, network models
-├── domain/
-│   ├── model/          # Domain models
-│   └── repository/     # Repository pattern implementation
-└── ui/
-    └── screens/        # Compose UI screens and components
+app/
+├── src/main/java/com/emusaves/
+│   ├── data/
+│   │   ├── local/          # Room database, DAOs, entities
+│   │   └── remote/         # Synology API client, network models
+│   ├── domain/
+│   │   ├── model/          # Domain models
+│   │   └── repository/     # Repository pattern implementation
+│   └── ui/
+│       └── screens/        # Compose UI screens and components
 ```
 
 ## 🛡 Privacy & Security
