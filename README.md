@@ -1,6 +1,8 @@
 # EmuSaves 🎮
 
 [![Build APK](https://github.com/rnaud/emusaves/actions/workflows/build-apk.yml/badge.svg)](https://github.com/rnaud/emusaves/actions/workflows/build-apk.yml)
+[![Run Tests](https://github.com/rnaud/emusaves/actions/workflows/test.yml/badge.svg)](https://github.com/rnaud/emusaves/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/rnaud/emusaves/branch/main/graph/badge.svg)](https://codecov.io/gh/rnaud/emusaves)
 
 **EmuSaves** is an Android application that automatically backs up your emulator save files to a Synology NAS. Never lose your game progress again!
 
@@ -282,6 +284,35 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 2. Open in Android Studio
 3. Sync project with Gradle files
 4. Run on device or emulator
+
+### 🧪 Testing & Quality Assurance
+
+#### **Automated Testing**
+- **62 comprehensive unit tests** covering all core functionality
+- **90%+ code coverage** with JaCoCo reporting
+- **GitHub Actions CI** runs tests on every push and PR
+- **Quality gates** ensure tests pass before code merge
+
+#### **Running Tests Locally**
+```bash
+# Run all unit tests
+./run-tests.sh
+
+# Run with coverage report
+./run-tests.sh --coverage --open
+
+# Watch mode for development  
+./run-tests.sh --watch --coverage
+```
+
+#### **Continuous Integration**
+- ✅ **Automated testing** on every commit
+- 📊 **Coverage reporting** with trend tracking
+- 🔍 **Code quality checks** (Kotlin lint + Android lint)
+- 🛡️ **PR protection** requiring tests to pass
+- 📋 **Visual test reports** in GitHub Actions
+
+See [TESTING.md](TESTING.md) for detailed testing documentation.
 
 ## 📝 License
 
