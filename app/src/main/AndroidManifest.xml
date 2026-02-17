@@ -38,7 +38,7 @@
             tools:node="merge">
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
-                android:resource="@xml/work_manager_initialization" />
+                android:value="androidx.startup" />
         </provider>
 
     </application>
