@@ -44,7 +44,6 @@ fun HomeScreen() {
     var remotePath by remember { mutableStateOf("/Drive/EmulatorBackups") }
     var showSynologyDialog by remember { mutableStateOf(false) }
     var showQuickAddDialog by remember { mutableStateOf(false) }
-    var scheduledSyncEnabled by remember { mutableStateOf(false) }
 
     // Load config into fields when available
     LaunchedEffect(uiState.config) {
@@ -114,11 +113,8 @@ fun HomeScreen() {
             // Scheduled Sync Card
             item {
                 ScheduledSyncCard(
-                    enabled = scheduledSyncEnabled,
-                    onToggle = { enabled ->
-                        scheduledSyncEnabled = enabled
-                        viewModel.enableScheduledSync(enabled)
-                    }
+                    enabled = uiState.scheduledSyncEnabled,
+                    onToggle = { viewModel.enableScheduledSync(it) }
                 )
             }
         }
